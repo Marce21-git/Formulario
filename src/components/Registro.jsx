@@ -1,4 +1,4 @@
-
+import SocialButton from "./SocialButton"
 
 import { useState } from 'react';
 import Formulario from './Formulario';
@@ -12,11 +12,7 @@ function Registro () {
   });
 
   return (
-    <>
-    <h1>hola</h1>
-    <Formulario setAlert={setAlert}/>
-    {alert.msg && <Alert color={alert.color}>{alert.msg}</Alert>}
-    </>
+    <div>Registro</div>
   )
 }
 export default Registro;
