@@ -1,10 +1,11 @@
 import './App.css'
-import Formulario from './components/Formulario';
+import Registro from './components/Registro';
+
 function App () {
+
   return (
     <>
-    <h1>hola</h1>
-    <Formulario/>
+    <Registro/>
     
     </>
   )

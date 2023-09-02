@@ -1,8 +1,8 @@
 
 
-const Alert = () => {// se pasa por prop el color y el mensaje de la alerta
+const Alert = ({color}) => {// se pasa por prop el color y el mensaje de la alerta
   return (
-    <div>el mensaje va por prop</div>
+    <div className="color">{color}</div>
   )
 }
 
