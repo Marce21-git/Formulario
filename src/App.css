@@ -5,6 +5,17 @@
   text-align: center;
 }
 
+.cajalogos {
+ display:flex;
+ flex-direction: row;
+ margin-bottom: 8px;
+}
+
+.cajalogos > button{
+  display: block;
+  margin: 0px 5px;
+ }
+
 .logo {
   height: 6em;
   padding: 1.5em;

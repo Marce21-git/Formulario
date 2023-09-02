@@ -15,26 +15,43 @@ const Formulario = ({ setAlert }) => {
         const { nombre, email, password, confirmPassword } = formularioData;
         const validarInput = !nombre || !email || !password || !confirmPassword;
         const validarPassword = password !== confirmPassword;
+        const formatoEmail = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/
+        const validarEmail = !formatoEmail.test(email)
 
-        validarInput
-            ?
+        if (validarInput) {
+
             setAlert({
                 error: true,
                 msg: 'Complete los campos',
                 color: 'danger',
             })
-            : setAlert({
+            return
+        }
+        else {
+            setAlert({
                 error: false,
                 msg: 'Cuenta creada exitosamente',
-                color: 'succes',
+                color: 'success',
             });
+        }
 
-        validarPassword ?
+        if (validarEmail) {
             setAlert({
                 error: true,
-                msg: 'Las password no son iguales',
+                msg: 'email incorrecto',
                 color: 'danger'
-            }) : '';
+            })
+            return
+        }
+
+        if (validarPassword) {
+            setAlert({
+                error: true,
+                msg: 'Password incorrecta',
+                color: 'danger'
+            })
+            return
+        }
 
         setFormularioData({
             nombre: '',
@@ -43,6 +60,15 @@ const Formulario = ({ setAlert }) => {
             confirmPassword: '',
 
         });
+
+
+        setTimeout(() => {
+            setAlert({
+                error: '',
+                msg: '',
+                color: '',
+            })
+        }, 5000);
     }
 
     const handlerChange = (e) => {
@@ -53,68 +79,47 @@ const Formulario = ({ setAlert }) => {
 
 
 
+
     return (
         <>
-
             <form
-                className="formulario"
-                onSubmit={validarFormulario}
-            >
-                <div className="form group mb-3">
-                    <input
-                        type="text"
-                        name="nombre"
-                        className="form-control"
-                        placeholder="nombre"
-                        onChange={handlerChange}
-                        value={formularioData.nombre}
-                    />
-                </div>
-                <div className="form group mb-3">
-                    <input
-                        type="mail"
-                        name="email"
-                        className="form-control"
-                        placeholder="tuemail@ejemplo.com"
-                        onChange={handlerChange}
-                        value={formularioData.email}
-                    />
-                </div>
-                <div className="form group mb-3">
-                    <input
-                        type="password"
-                        name="password"
-                        className="form-control"
-                        placeholder="Contraseña"
-                        onChange={handlerChange}
-                        value={formularioData.password}
-                    />
-                </div>
-                <div className="form group mb-3">
-                    <input
-                        type="password"
-                        name="confirmPassword"
-                        className="form-control"
-                        placeholder="Confirma tu contraseña"
-                        onChange={handlerChange}
-                        value={formularioData.confirmPassword}
-                    />
-                </div>
-                <div className="d-grid gap-2">
-                    <button type="submit"
-                        className="btn btn-success"
-                    >
-                        Registrarse
-                    </button>
-                </div>
+                id="loginform"
+                onSubmit={validarFormulario}>
+                <input
+                    type="text"
+                    name="nombre"
+                    placeholder="nombre"
+                    onChange={handlerChange}
+                    value={formularioData.nombre} />
 
+                <input
+                    type="text"
+                    name="email"
+                    placeholder="email"
+                    onChange={handlerChange}
+                    value={formularioData.email} />
+
+
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="password"
+                    onChange={handlerChange}
+                    value={formularioData.password} />
+
+                <input
+                    type="password"
+                    name="confirmPassword"
+                    placeholder="password"
+                    onChange={handlerChange}
+                    value={formularioData.confirmPassword} />
+
+                <button
+                    type="submit"
+                    name="Ingresar">
+                    Registrarse
+                </button>
             </form>
-
-
-
-
-
-
         </>
     )
 }
