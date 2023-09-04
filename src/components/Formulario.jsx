@@ -1,22 +1,31 @@
 import { useState } from "react"
+import Alert from "./Alert";
 
-const Formulario = ({ setAlert }) => {
+const Formulario = ({data, setDatax, dataFilter,setDataFilter }) => {
 
+   
     const [formularioData, setFormularioData] = useState({
         nombre: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
+        correo: '',
+        edad: '',
+        cargo: '',
+        telefono: ''
     })
+
+
+    const [alert, setAlert] = useState({
+        error: false,
+        msg: '',
+        color: '',
+    });
 
     const validarFormulario = (e) => {
         e.preventDefault();
 
-        const { nombre, email, password, confirmPassword } = formularioData;
-        const validarInput = !nombre || !email || !password || !confirmPassword;
-        const validarPassword = password !== confirmPassword;
+        const { nombre, correo, edad, cargo, telefono } = formularioData;
+        const validarInput = !nombre || !correo || !edad || !cargo || !telefono;
         const formatoEmail = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/
-        const validarEmail = !formatoEmail.test(email)
+        const validarEmail = !formatoEmail.test(correo)
 
         if (validarInput) {
 
@@ -44,20 +53,17 @@ const Formulario = ({ setAlert }) => {
             return
         }
 
-        if (validarPassword) {
-            setAlert({
-                error: true,
-                msg: 'Password incorrecta',
-                color: 'danger'
-            })
-            return
-        }
+        setDatax([...data, {...formularioData, id:8}])
+        setDataFilter([...dataFilter,{...formularioData, id:8}])
+
+
 
         setFormularioData({
             nombre: '',
-            email: '',
-            password: '',
-            confirmPassword: '',
+            correo: '',
+            edad: '',
+            cargo: '',
+            telefono: ''
 
         });
 
@@ -82,44 +88,62 @@ const Formulario = ({ setAlert }) => {
 
     return (
         <>
-            <form
-                id="loginform"
-                onSubmit={validarFormulario}>
-                <input
-                    type="text"
-                    name="nombre"
-                    placeholder="nombre"
-                    onChange={handlerChange}
-                    value={formularioData.nombre} />
+            <div id="contenedor">
+                <div id="central">
+                    <div id="login">
+                        <div className="titulo">
+                            Nuevo colaborador
+                        </div>
+                        <form
+                            id="loginform"
+                            onSubmit={validarFormulario}>
+                            <input
+                                type="text"
+                                name="nombre"
+                                placeholder="nombre"
+                                onChange={handlerChange}
+                                value={formularioData.nombre} />
 
-                <input
-                    type="text"
-                    name="email"
-                    placeholder="email"
-                    onChange={handlerChange}
-                    value={formularioData.email} />
+                            <input
+                                type="email"
+                                name="correo"
+                                placeholder="email"
+                                onChange={handlerChange}
+                                value={formularioData.correo} />
 
 
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="password"
-                    onChange={handlerChange}
-                    value={formularioData.password} />
+                            <input
+                                type="text"
+                                name="edad"
+                                placeholder="edad"
+                                onChange={handlerChange}
+                                value={formularioData.edad} />
 
-                <input
-                    type="password"
-                    name="confirmPassword"
-                    placeholder="password"
-                    onChange={handlerChange}
-                    value={formularioData.confirmPassword} />
+                            <input
+                                type="text"
+                                name="cargo"
+                                placeholder="cargo"
+                                onChange={handlerChange}
+                                value={formularioData.cargo} />
 
-                <button
-                    type="submit"
-                    name="Ingresar">
-                    Registrarse
-                </button>
-            </form>
+
+                            <input
+                                type="text"
+                                name="telefono"
+                                placeholder="telefono"
+                                onChange={handlerChange}
+                                value={formularioData.telefono} />
+
+                            <button
+                                type="submit"
+                                name="Ingresar">
+                                Agregar
+                            </button>
+                        </form>
+                        {alert.msg && <Alert color={alert.color} messagge={alert.msg} />}
+                    </div>
+                </div>
+            </div>
         </>
     )
 }
